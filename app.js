@@ -239,8 +239,8 @@ function startReductionFlow({ sourcePile, stage, next }) {
     return;
   }
 
-  beginReductionRound(stage, sourcePile, reduceToTenTarget, () => {
-    beginReductionRound(stage, [...state.reduction.keptPile], finalTarget, next);
+  beginReductionRound(stage, sourcePile, reduceToTenTarget, (keptValues) => {
+    beginReductionRound(stage, keptValues, finalTarget, next);
   });
 }
 
@@ -331,7 +331,7 @@ function finishReductionPass() {
     assignFinalValues(r.stage, finalSet);
     const done = r.onDone;
     state.reduction = null;
-    done();
+    done(finalSet);
     return;
   }
 
